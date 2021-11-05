@@ -79,7 +79,7 @@ include "./config/database.php";
 							<span><?php echo $_CONFIG["system_name"]; ?></span>
 						</div>
 						<div class="about-desc">
-							ในปีงบประมาณ 2565 เป็นต้นไป การส่งคำขอโครงการต่างๆ หน่วยงานจะต้องทำการบันทึกข้อมูลผ่านระบบเท่านั้น เพื่อความสะดวกและความถูกต้องของข้อมูล
+							<?php echo $_CONFIG["system_name"]; ?> มหาวิทยาลัยราชภัฏมหาสารคาม
 						</div>
 						<!-- <a href="#" class="know-more">Know More <img src="img/right-arrow.svg" alt="Uni Pro Admin"></a> -->
 
@@ -111,7 +111,7 @@ include "./config/database.php";
 									</div>
 								</div>
 								<div class="login-footer">
-									<span class="additional-link">ไม่มีบัญชีเข้าใช้งาน กรุณาติดต่อกองนโยบายและแผน</span>
+									<span class="additional-link">ไม่มีบัญชีเข้าใช้งาน กรุณาติดต่อกองนโยบายและแผน มรม.</span>
 								</div>
 							</div>
 						</form>

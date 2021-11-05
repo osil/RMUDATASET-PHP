@@ -56,7 +56,7 @@ include "./config/database.php";
                                                     <span class="icon">
                                                         <i class="icon-server"></i>
                                                     </span>
-                                                    <h6>ชื่อผู้ใช้งาน - <span><?php echo $_SESSION["sess-bgu-user_code"]; ?></span></h6>
+                                                    <h6>ชื่อผู้ใช้งาน - <span><?php echo $_SESSION["sess-rmudataset-fullname"]; ?></span></h6>
                                                 </div>
                                             </div>
                                             <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12">
@@ -64,7 +64,7 @@ include "./config/database.php";
                                                     <span class="icon">
                                                         <i class="icon-dollar-sign"></i>
                                                     </span>
-                                                    <h6>สังกัด - <span><?php echo $_SESSION["sess-bgu-user_name"]; ?></span></h6>
+                                                    <h6>พื้นที่รับผิดชอบ - <span></span></h6>
                                                 </div>
                                             </div>
                                             <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12">
@@ -72,7 +72,7 @@ include "./config/database.php";
                                                     <span class="icon">
                                                         <i class="icon-schedule"></i>
                                                     </span>
-                                                    <h6>ปีงบประมาณ - <span><?php echo $_SESSION["sess-bgu-periodid"]; ?></span></h6>
+                                                    <h6>ระดับการใช้งาน - <span></span></h6>
                                                 </div>
                                             </div>
 
@@ -93,159 +93,63 @@ include "./config/database.php";
 
                             <!-- Card start -->
                             <div class="card">
+                                <div class="card-header">
+                                    <div class="card-title">ข้อมูลระดับบุคคลและครัวเรือน</div>
+                                    <div class="graph-day-selection" role="group">
+                                        <button type="button" class="btn active">Export to Excel</button>
+                                    </div>
+                                </div>
                                 <div class="card-body">
 
-                                    <!-- Faq start -->
-                                    <div class="accordion" id="faqAccordion">
+                                    <div class="table-responsive">
+                                        <table id="basicExample" class="table custom-table" style="vertical-align: middle;">
+                                            <thead class="text-center">
+                                                <tr>
+                                                    <th>รหัสประจำบ้าน</th>
+                                                    <th>บ้านเลขที่</th>
+                                                    <th>หมู่บ้าน</th>
+                                                    <th>ตำบล</th>
+                                                    <th>อำเภอ</th>
+                                                    <th>จังหวัด</th>
+                                                    <th>สถานะ</th>
+                                                    <th>ตัวเลือก</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="text-center">
+                                                <?php
 
+                                                for ($i = 1; $i <= 20; $i++) {
+                                                ?>
+                                                    <tr>
+                                                        <td>1020100<?php echo $i; ?></td>
+                                                        <td><?php echo $i; ?></td>
+                                                        <td>มรม</td>
+                                                        <td>ตลาด</td>
+                                                        <td>เมือง</td>
+                                                        <td>มหาสารคาม</td>
+                                                        <td>ขั้นที่ 2/6</td>
+                                                        <td>
+                                                            <div class="btn-group">
+                                                                <button type="button" class="btn btn-outline-secondary btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                                                    Options
+                                                                </button>
+                                                                <ul class="dropdown-menu">
+                                                                    <li><a class="dropdown-item" href="#">Action</a></li>
+                                                                    <li><a class="dropdown-item" href="#">Another action</a></li>
+                                                                    <li><a class="dropdown-item" href="#">Something else here</a></li>
+                                                                    <li>
+                                                                        <hr class="dropdown-divider">
+                                                                    </li>
+                                                                    <li><a class="dropdown-item" href="#">Separated link</a></li>
+                                                                </ul>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                <?php } ?>
 
-                                        <?php
-
-                                        $sql2 = "SELECT * FROM v_budgetegroup";
-
-                                        $params2 = array();
-                                        $result2 = $con->prepare($sql2);
-                                        $res2 = $result2->execute($params2);
-                                        while ($data2 = $result2->fetch()) {
-                                        ?>
-
-                                            <div class="accordion-item">
-                                                <h2 class="accordion-header" id="heading<?php echo $data2['budgetgroup_id'] ?>">
-                                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse<?php echo $data2['budgetgroup_id'] ?>" aria-expanded="false" aria-controls="collapse<?php echo $data2['budgetgroup_id'] ?>">
-                                                        <?php echo $data2['budgetgroup_name'] ?>
-                                                    </button>
-                                                </h2>
-                                                <div id="collapse<?php echo $data2['budgetgroup_id'] ?>" class="accordion-collapse collapse" aria-labelledby="heading<?php echo $data2['budgetgroup_id'] ?>" data-bs-parent="#faqAccordion">
-                                                    <div class="accordion-body">
-                                                        <h5 class="text-center">งบ <?php echo $data2['budgetgroup_name'] ?></h5>
-
-                                                        <div class="table-responsive">
-                                                            <table class="table table-bordered table-striped m-0" style="vertical-align: middle;">
-                                                                <thead>
-                                                                    <tr class="text-center">
-                                                                        <th>รายละเอียดงบ</th>
-                                                                        <th style="width: 40%;">จำนวนเงิน</th>
-                                                                        <th>option</th>
-                                                                    </tr>
-                                                                </thead>
-                                                                <tbody>
-                                                                    <?php
-                                                                    $i = 1;
-                                                                    $sql = "SELECT
-                                                                    * 
-                                                                FROM
-                                                                    v_project p 
-                                                                WHERE
-                                                                    p.departmentid = :departmentid
-                                                                    AND p.budgetgroup_id = :budgetgroup_id
-                                                                    AND p.periodid = :periodid 
-                                                                ORDER BY
-                                                                    p.productid ASC";
-
-                                                                    $params = array(
-                                                                        'departmentid' => $_SESSION["sess-bgu-departmentid"],
-                                                                        'budgetgroup_id' => $data2['budgetgroup_id'],
-                                                                        'periodid' => $_SESSION["sess-bgu-periodid"]
-                                                                    );
-                                                                    $result = $con->prepare($sql);
-                                                                    $res = $result->execute($params);
-                                                                    while ($data1 = $result->fetch()) {
-                                                                    ?>
-
-                                                                        <tr>
-
-
-
-                                                                            <td style="vertical-align: top;">
-                                                                                <ul class="list-group">
-                                                                                    <li class="list-group-item active"><b> ชื่อ : </b> <?php echo $data1['projectname']  ?></li>
-                                                                                    <li class="list-group-item"><b>งบประมาณ : </b> <?php echo $data1['budgetgroup_code'] . " " . $data1['budgetgroup_name'] ?></li>
-                                                                                    <li class="list-group-item"><b>แผน : </b> <?php echo $data1['PLANNAME'] ?></li>
-                                                                                    <li class="list-group-item"><b>โครงการ : </b> <?php echo $data1['PRODUCTNAME'] ?></li>
-                                                                                    <li class="list-group-item"><b>ยุทธศาสตร์ : </b> <?php echo $data1['STRATEGYUNAME'] ?></li>
-                                                                                    <li class="list-group-item"><b>งบ : </b> <?php echo $data1['budgettype_name'] ?></li>
-                                                                                </ul>
-                                                                                <ul class="list-group">
-                                                                                    <li class="list-group-item list-group-item-dark"><b> แผนยุทธศาสตร์ : </b> <span class="text-break"><?php echo $data1['phase_name'] ?></span></li>
-                                                                                    <li class="list-group-item"><b>ยุทธศาสตร์ : </b> <span class="text-break"><?php echo $data1['strategy_code'] . " " . $data1['strategy_name'] ?></span></li>
-                                                                                    <li class="list-group-item"><b>เป้าหมาย : </b> <span class="text-break"><?php echo $data1['target_code'] . " " . $data1['target_name'] ?></span></li>
-                                                                                    <li class="list-group-item"><b>กลยุทธ : </b> <span class="text-break"><?php echo $data1['strategic_code'] . " " . $data1['strategic_name'] ?></span></li>
-                                                                                    <li class="list-group-item"><b>ตัวชี้วัด : </b>
-                                                                                        <?php
-                                                                                        $sql3 = "SELECT
-                                                                                    p.project_id,
-                                                                                    p.indicator_id,
-                                                                                    i.`code`,
-                                                                                    i.`name` 
-                                                                                FROM
-                                                                                    project_indicator AS p
-                                                                                    INNER JOIN indicator AS i ON i.id = p.indicator_id 
-                                                                                WHERE
-                                                                                    p.project_id = :project_id";
-
-                                                                                        $params3 = array(
-                                                                                            'project_id' => $data1['projectid']
-                                                                                        );
-                                                                                        $result3 = $con->prepare($sql3);
-                                                                                        $res3 = $result3->execute($params3);
-                                                                                        while ($data3 = $result3->fetch()) {
-                                                                                        ?>
-                                                                                            <br />
-                                                                                            <span class="badge bg-secondary"><?php echo $data3['code'] . " " . $data3['name'] ?></span>
-                                                                                        <?php } ?>
-
-                                                                                    </li>
-                                                                                </ul>
-                                                                            </td>
-                                                                            <td class="" style="vertical-align: top;">
-
-                                                                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                                                                                    <ol class="list-group">
-                                                                                        <li class="list-group-item"> ต.ค.<?php echo (substr($data1['periodid'], 2) - 1) . " : " . number_format($data1['m1']) . " บาท"; ?> </li>
-                                                                                        <li class="list-group-item"> พ.ย.<?php echo (substr($data1['periodid'], 2) - 1) . " : " . number_format($data1['m2']) . " บาท"; ?> </li>
-                                                                                        <li class="list-group-item"> ธ.ค.<?php echo (substr($data1['periodid'], 2) - 1) . " : " . number_format($data1['m3']) . " บาท"; ?> </li>
-                                                                                        <li class="list-group-item"> ม.ค.<?php echo (substr($data1['periodid'], 2)) . " : " . number_format($data1['m4']) . " บาท"; ?> </li>
-                                                                                        <li class="list-group-item"> ก.พ.<?php echo (substr($data1['periodid'], 2)) . " : " . number_format($data1['m5']) . " บาท"; ?> </li>
-                                                                                        <li class="list-group-item"> มี.ค.<?php echo (substr($data1['periodid'], 2)) . " : " . number_format($data1['m6']) . " บาท"; ?> </li>
-                                                                                        <li class="list-group-item"> เม.ย.<?php echo (substr($data1['periodid'], 2)) . " : " . number_format($data1['m7']) . " บาท"; ?> </li>
-                                                                                        <li class="list-group-item"> พ.ค.<?php echo (substr($data1['periodid'], 2)) . " : " . number_format($data1['m8']) . " บาท"; ?> </li>
-                                                                                        <li class="list-group-item"> มิ.ย.<?php echo (substr($data1['periodid'], 2)) . " : " . number_format($data1['m9']) . " บาท"; ?> </li>
-                                                                                        <li class="list-group-item"> ก.ค.<?php echo (substr($data1['periodid'], 2)) . " : " . number_format($data1['m10']) . " บาท"; ?> </li>
-                                                                                        <li class="list-group-item"> ส.ค.<?php echo (substr($data1['periodid'], 2)) . " : " . number_format($data1['m11']) . " บาท"; ?> </li>
-                                                                                        <li class="list-group-item"> ก.ย.<?php echo (substr($data1['periodid'], 2)) . " : " . number_format($data1['m12']) . " บาท"; ?> </li>
-                                                                                    </ol>
-                                                                                </div>
-
-
-
-                                                                            </td>
-                                                                            <td>
-                                                                                <div class="btn-group" role="group">
-                                                                                    <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                                                                                        option
-                                                                                    </button>
-                                                                                    <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                                                                                        <li><a class="dropdown-item" href="#" onclick="_deleteProject(<?php echo $data1['projectid'] ?>)"> <span class="icon-delete"></span> ลบ</a></li>
-                                                                                    </ul>
-                                                                                </div>
-                                                                            </td>
-
-                                                                        </tr>
-                                                                    <?php $i++;
-                                                                    } ?>
-
-
-
-                                                            </table>
-                                                        </div>
-
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        <?php } ?>
-
+                                            </tbody>
+                                        </table>
                                     </div>
-                                    <!-- Faq end -->
 
                                 </div>
                             </div>
@@ -276,6 +180,21 @@ include "./config/database.php";
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script type="text/javascript">
+        // Basic DataTable
+        $(function() {
+            $('#basicExample').DataTable({
+                "lengthMenu": [
+                    [5, 10, 25, 50],
+                    [5, 10, 25, 50, "All"]
+                ],
+                "language": {
+                    "lengthMenu": "Display _MENU_ Records Per Page",
+                    "info": "Showing Page _PAGE_ of _PAGES_",
+                }
+            });
+        });
+
+
         function _deleteProject(projectid) {
             Swal.fire({
                 title: 'ยืนยันการทำรายการ?',
